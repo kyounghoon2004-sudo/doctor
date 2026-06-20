@@ -1,0 +1,53 @@
+# ---------------------------------------------------------------------------
+# YouTube Shorts Automated Processing and Logging System
+# Python dependencies
+#
+# Install with:
+#   pip install -r requirements.txt
+#   playwright install chromium
+#
+# NOTE: faster-whisper will pull in a CTranslate2 backend. For GPU (CUDA)
+#       acceleration you additionally need a matching CUDA/cuDNN runtime.
+# ---------------------------------------------------------------------------
+
+# Browser automation + screenshots
+playwright>=1.44.0
+
+# Direct YouTube audio/video stream extraction (no login required)
+yt-dlp>=2024.4.9
+
+# Local high-performance speech-to-text
+faster-whisper>=1.0.0
+
+# Excel writing and image embedding
+openpyxl>=3.1.2
+
+# Pillow is required by openpyxl to embed images and is used here to read
+# image dimensions for proportional resizing.
+Pillow>=10.0.0
+
+# Tabular data structures (used for in-memory result handling / future export)
+pandas>=2.0.0
+
+# HTTP client for the local Ollama REST API
+requests>=2.31.0
+
+# Web framework powering the interactive dashboard (dashboard.py)
+Flask>=3.0.0
+
+# ---------------------------------------------------------------------------
+# OPTIONAL: GPU transcription via ONNX Runtime + DirectML (Windows only)
+# ---------------------------------------------------------------------------
+# Runs Whisper on AMD / Intel / NVIDIA GPUs through DirectX 12. Enable by setting
+#   config.WHISPER_BACKEND = "directml"
+# It is OFF by default because on typical hardware it is CORRECT but ~5x slower
+# than CPU (DirectML requires Whisper's KV-cache to be disabled).
+#
+# IMPORTANT: install onnxruntime-directml INSTEAD of the plain onnxruntime:
+#   pip uninstall -y onnxruntime
+#   pip install onnxruntime-directml optimum-onnx transformers
+# (left commented so the normal CPU install above isn't disturbed)
+#
+#   onnxruntime-directml>=1.20.0
+#   optimum-onnx>=0.1.0
+#   transformers>=4.44.0
